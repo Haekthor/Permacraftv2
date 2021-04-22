@@ -1,0 +1,24 @@
+name: Permacraft
+version: 1.0
+author: Hector Kolind
+main: dev.kolind.permacraft.main.Main
+description: A plugin for Permacraft
+api-version: 1.16
+softdepend: [Citizens, Sentinel]
+
+commands:
+    permacraft:
+      description: Permacraft plugin
+      permission: permacraft.gui
+      permission-message: Infucient permissions!
+      usage: /permacraft
+
+    ogre:
+      description: A test command
+      permission-message: Infucient permissions!
+      usage: /test
+
+    reset:
+      description: A test command
+      permission-message: Infucient permissions!
+      usage: /reset
