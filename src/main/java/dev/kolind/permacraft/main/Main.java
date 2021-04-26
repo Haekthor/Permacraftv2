@@ -1,8 +1,8 @@
 package dev.kolind.permacraft.main;
 
 import dev.kolind.permacraft.functions.bossmobs.Bossmobs;
-import dev.kolind.permacraft.functions.bossmobs.ogre.Ogre;
-import dev.kolind.permacraft.functions.bossmobs.ogre.OgreProperties;
+import dev.kolind.permacraft.functions.bossmobs.NametagHealth;
+import dev.kolind.permacraft.functions.bossmobs.mobs.Ogre;
 import dev.kolind.permacraft.functions.chestloot.ChestLoot;
 import dev.kolind.permacraft.functions.customitems.CustomItemListListener;
 import dev.kolind.permacraft.functions.deathban.Deathban;
@@ -15,14 +15,18 @@ import dev.kolind.permacraft.gui.pages.items.Itempagelistener;
 import dev.kolind.permacraft.gui.pages.mainmenu.Mainpage;
 import dev.kolind.permacraft.gui.pages.mainmenu.Mainpagelistener;
 import dev.kolind.permacraft.itemfunctions.*;
-import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.DespawnReason;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.NPCRegistry;
+import net.citizensnpcs.trait.waypoint.Waypoints;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Iterator;
 
 
 public class Main extends JavaPlugin {
@@ -58,6 +62,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ChestLoot(this), this);
         pm.registerEvents(new CustomItemListListener(this), this);
         pm.registerEvents(new HelmofdarknessFunction(this), this);
+        pm.registerEvents(new NametagHealth(this), this);
         
         
         getConfig().set("LootDrops.resetnextstartup", true);
@@ -73,6 +78,16 @@ public class Main extends JavaPlugin {
         
         plugin = this;
 
+
+        //Restart mobs
+        for (NPCRegistry npcRegistry : CitizensAPI.getNPCRegistries()) {
+            for (Iterator<NPC> it = npcRegistry.iterator(); it.hasNext(); ) {
+                NPC npc = it.next();
+                if (npc.hasTrait(Waypoints.class)) {
+                    npc.getOrAddTrait(Waypoints.class).setWaypointProvider("wander");
+                }
+            }
+        }
     }
 
     @Override
@@ -88,16 +103,16 @@ public class Main extends JavaPlugin {
         	switch (lowerCmd) {
         		case "permacraft":
         			Mainpage.openGUI(player);
-	        	//return true;
+	        	return true;
 
-                case "ogre":
-
-
-                    player.sendMessage("Test started");
-                    ogre.summonOgre(player.getLocation());
-                    player.sendMessage("Test finished" );
-                return true;
-
+                case "summon":
+                    if(args.length >= 1) {
+                        switch (args[0]) {
+                            case "ogre":
+                                ogre.summon(player.getLocation());
+                            return true;
+                        }
+                    }
 
                 case "reset":
                     CitizensAPI.getNPCRegistry().deregisterAll();

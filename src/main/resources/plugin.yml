@@ -13,7 +13,7 @@ commands:
       permission-message: Infucient permissions!
       usage: /permacraft
 
-    ogre:
+    summon:
       description: A test command
       permission-message: Infucient permissions!
       usage: /test
