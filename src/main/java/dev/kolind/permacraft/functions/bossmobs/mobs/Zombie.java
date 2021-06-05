@@ -14,30 +14,30 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.mcmonkey.sentinel.SentinelTrait;
 
-public class Skeleton {
+public class Zombie {
 
     boolean lookClose = true;
-    boolean allowKnockback = true;
+    boolean allowKnockback = false;
     boolean wander = true;
     boolean respawn = false;
 
-    ItemStack heldItem = new ItemStack(Material.BOW, 1);
+    ItemStack heldItem = new ItemStack(Material.AIR, 1);
 
-    int eyeRange = 8; //Blocks
+    int eyeRange = 6; //Blocks
     double reach = 1.3; //Blocks
     double attackRate = 1.5; //Seconds delay
-    int damage = 5; //Half hearts
-    int health = 15; //Half-hearts
+    int damage = 2; //Half hearts
+    int health = 10; //Half-hearts
     int regenSpeed = 0; //Idfk
-    int attackMovementSpeed = 2; //Blocks pr. second
-    float wanderMovementSpeed = 0.8F; //Blocks pr. second
+    int attackMovementSpeed = 1; //Blocks pr. second
+    float wanderMovementSpeed = 0.7F; //Blocks pr. second
     int wanderRange = 10; //Blocks //Max 25
 
     String npcRarity = "UNCOMMON";
-    String npcType = "Skeleton";
+    String npcType = "Zombie";
     String skinName = "haekthor";
-    String skinSignature = "J6M+Ma6I/2tdDLL/yK+30K1gdMmrCFNNg7rJ20x0Vk/BFFe4rgjT4DkD6gQ3gAXpjshmPfaMdZnoO3jZzJQWqJVcJ/RX3z2ykhuOU0+HCukNE21PcrSTetZDZ9rVTpq1vPXFdvex6r/pSvrr385w3pVgt81Xq6vACowck45KhEKJnvgEWqkUjLdwNGt4oh5FPNUK3dOhL3kutbisTjR3g9SIqXlS53kligOaeVV8by/bclokH59kgdzKuTxE5111mz+pNHHcjN33y8db8Ec0bK3yzNtb9R83lmhEfR2NP7zlEtZXXYv7bH5SD6hbFzWuyPyBwbNbbLI9YSsCHPnBQNj4naFfjfpmprk3APy+S/GLDfvU6aH1FR7PT4g52hnnoCnLPB3u8ViCGlKmxJPUIt1yOBjA2Lc+jOc3bZ7jEnejB9OQEsgRObZi+uR+08pO5dVj30I3XT4+WurX2zIS4T8i4i/u5sukzZJDzpvjdsArsG4IqdAHRJUE+JliAz3x3w2VC/DAhQlRX+n/FH30nI/qJpgTe0GP+WRQHK71FnmtechPi0WHb50el3NlY+Bq5qxJnSO5k85bmpjpYL/r6tjr0Wlsdyb4YXBazS8XEd48ic2EK9JuxI16ODNqmqFpVm1vBm9PZsxlCbqiaJYrCHscJ3BDItuAaPMY4koCERY=";
-    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYxOTQ0MTMyODcyNSwKICAicHJvZmlsZUlkIiA6ICI2ZDk1OWZjY2UwY2E0NGZmOGQ0OWY0YTJhZTlmOGRlOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTa2VsZXRvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9iZjBmNTIzMDMyN2VlZmZiNzYzMWYzN2JlNTQ4YWQ3YmRiMzJjYTc0M2MwNjc5MWRjYjc3NDNiYjk2MTY2OTkxIgogICAgfQogIH0KfQ==";
+    String skinSignature = "PYDq0LyuhZ6LpQN9hdjQhXz+YLrum3ggdypgZ4Et+dVC+ofzzb2N1V1iUtJ868nzONXFjEGlDbkEqwFtISJApkfhn/qVKwNwQYb82WDEWAu3vX9T3XTRMGIH/FuOhvQORWNClaxwlPhIiNcx0IASUTc0YjtkzscM389AEJ3b/gYVQPTOh2CGQfF4m2i2iTfb7z3sbiFB5xNqSUpfzlajTjCk4kziQ7IHNkCQj/OL8Pfeb3kW4rQ14Ik+IfqP5nzeflMWLd5GeEOfxXQ/BJZIVrDq3c0+K9lESAx2kCvpOFbBynYsEGDFztibVsHfS1femTbPwaujs+AYKiuqJi4pdtt695CPDdCZZnx+sAGl0ElSpwkZ2Si0b3ZCjEFDjj2uO2xfd82NQwbUM9CuWVK0bxY6xj9jscnxkSn9Eb17htacbImf7BXbRbCXxA9XPt2YYDdLPOUbc5ievLgDoIWiCj1gAm29Q1yUVk34UhOrqb6UsUmFpQCbh5fNmhsS+csQuDfLmC37HSw/JNoJkxuCRfsVIDkZ9q5J97KfkVKAChRPE0EE37zwabAorLuMkpyAGMFTw9dzD+pjxgvVpBdyhaGa3poqsy6zQTpgYPK/1bObds4WkhOvTG+sdTxZ+JByyrSwgfawi+UW5GC3KxikTzzX2ZOT7448WXY5BJpPdpg=";
+    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYxOTQ0ODAwMDIzOSwKICAicHJvZmlsZUlkIiA6ICIyMWUzNjdkNzI1Y2Y0ZTNiYjI2OTJjNGEzMDBhNGRlYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJHZXlzZXJNQyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lM2Y2Mzc0YWZiZWEzOGM3OTk4OTBlYjgzZDZmZjE4OTZmNjFiNGNjOGZiOWYyNjZhZGQ5YTM5NWViOWZkMTVlIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
     String targets = "players";
 
     public void summon(Location location) {

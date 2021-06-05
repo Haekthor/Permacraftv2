@@ -3,6 +3,7 @@ package dev.kolind.permacraft.main;
 import dev.kolind.permacraft.functions.bossmobs.Bossmobs;
 import dev.kolind.permacraft.functions.bossmobs.NametagHealth;
 import dev.kolind.permacraft.functions.bossmobs.mobs.Ogre;
+import dev.kolind.permacraft.functions.bossmobs.mobs.Zombie;
 import dev.kolind.permacraft.functions.chestloot.ChestLoot;
 import dev.kolind.permacraft.functions.customitems.CustomItemListListener;
 import dev.kolind.permacraft.functions.deathban.Deathban;
@@ -34,6 +35,7 @@ public class Main extends JavaPlugin {
 	public String pluginprefix;
     public static Main plugin;
     Ogre ogre = new Ogre();
+    Zombie zombie = new Zombie();
 	
 	
     @Override
@@ -105,11 +107,14 @@ public class Main extends JavaPlugin {
         			Mainpage.openGUI(player);
 	        	return true;
 
-                case "summon":
+                case "customsummon":
                     if(args.length >= 1) {
                         switch (args[0]) {
                             case "ogre":
                                 ogre.summon(player.getLocation());
+                            return true;
+                            case "zombie":
+                                zombie.summon(player.getLocation());
                             return true;
                         }
                     }
