@@ -2,8 +2,10 @@ package dev.kolind.permacraft.main;
 
 import dev.kolind.permacraft.functions.bossmobs.Bossmobs;
 import dev.kolind.permacraft.functions.bossmobs.NametagHealth;
-import dev.kolind.permacraft.functions.bossmobs.mobs.Ogre;
-import dev.kolind.permacraft.functions.bossmobs.mobs.Zombie;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon.Cyclops;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon.Oni;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.common.Ogre;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.common.Zombie;
 import dev.kolind.permacraft.functions.chestloot.ChestLoot;
 import dev.kolind.permacraft.functions.customitems.CustomItemListListener;
 import dev.kolind.permacraft.functions.deathban.Deathban;
@@ -34,8 +36,11 @@ public class Main extends JavaPlugin {
 
 	public String pluginprefix;
     public static Main plugin;
+
     Ogre ogre = new Ogre();
     Zombie zombie = new Zombie();
+    Oni oni = new Oni();
+    Cyclops cyclops = new Cyclops();
 	
 	
     @Override
@@ -79,17 +84,6 @@ public class Main extends JavaPlugin {
         }
         
         plugin = this;
-
-
-        //Restart mobs
-        for (NPCRegistry npcRegistry : CitizensAPI.getNPCRegistries()) {
-            for (Iterator<NPC> it = npcRegistry.iterator(); it.hasNext(); ) {
-                NPC npc = it.next();
-                if (npc.hasTrait(Waypoints.class)) {
-                    npc.getOrAddTrait(Waypoints.class).setWaypointProvider("wander");
-                }
-            }
-        }
     }
 
     @Override
@@ -100,7 +94,7 @@ public class Main extends JavaPlugin {
     //Commands
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = (Player) sender;
-        if (sender instanceof Player) {
+        if (sender != null) {
         	String lowerCmd = cmd.getName().toLowerCase(); //Make the send command lowercase	
         	switch (lowerCmd) {
         		case "permacraft":
@@ -109,12 +103,18 @@ public class Main extends JavaPlugin {
 
                 case "customsummon":
                     if(args.length >= 1) {
-                        switch (args[0]) {
+                        switch (args[0].toLowerCase()) {
                             case "ogre":
                                 ogre.summon(player.getLocation());
                             return true;
                             case "zombie":
                                 zombie.summon(player.getLocation());
+                            return true;
+                            case "oni":
+                                oni.summon(player.getLocation());
+                            return true;
+                            case "cyclops":
+                                cyclops.summon(player.getLocation());
                             return true;
                         }
                     }

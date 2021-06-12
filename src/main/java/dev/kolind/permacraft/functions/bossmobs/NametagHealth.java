@@ -28,8 +28,8 @@ public class NametagHealth implements Listener {
         if (CitizensAPI.getNPCRegistry().isNPC(event.getEntity())) {
             Bukkit.getScheduler().runTaskLater(instance, () -> {
                 NPC npc = CitizensAPI.getNPCRegistry().getNPC(event.getEntity());
-                double maxHealth = npc.getOrAddTrait(SentinelTrait.class).health;
-                String currentHealth = new DecimalFormat("##.##").format(((LivingEntity) event.getEntity()).getHealth());
+                String maxHealth = new DecimalFormat("##").format(npc.getOrAddTrait(SentinelTrait.class).health);
+                String currentHealth = new DecimalFormat("##").format(((LivingEntity) event.getEntity()).getHealth());
                 npc.setName(ChatColor.DARK_GRAY + "[" + ChatColor.GRAY + npc.data().get("rarity") + ChatColor.DARK_GRAY + "] " + ChatColor.RED + npc.data().get("type") + " " + ChatColor.GREEN + currentHealth + ChatColor.GRAY + "/" + ChatColor.GREEN + maxHealth);
             }, 5L);
         }

@@ -1,18 +1,10 @@
-package dev.kolind.permacraft.functions.bossmobs.mobs;
+package dev.kolind.permacraft.functions.bossmobs.mobs.hostile.common;
 
-import dev.kolind.permacraft.functions.customitems.CustomItems;
-import dev.kolind.permacraft.gui.items.Bossmobitems;
-import dev.kolind.permacraft.tools.CustomItemList;
-import dev.kolind.permacraft.tools.ItemSmith;
 import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.ai.GoalController;
-import net.citizensnpcs.api.ai.Navigator;
-import net.citizensnpcs.api.ai.goals.WanderGoal;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.trait.LookClose;
 import net.citizensnpcs.trait.SkinTrait;
-import net.citizensnpcs.trait.waypoint.WanderWaypointProvider;
 import net.citizensnpcs.trait.waypoint.Waypoints;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,7 +14,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.mcmonkey.sentinel.SentinelTrait;
 
-public class Ogre {
+public class Zombie {
 
     boolean lookClose = true;
     boolean allowKnockback = false;
@@ -34,18 +26,18 @@ public class Ogre {
     int eyeRange = 8; //Blocks
     double reach = 1.3; //Blocks
     double attackRate = 1.5; //Seconds delay
-    int damage = 3; //Half hearts
-    int health = 20; //Half-hearts
+    int damage = 2; //Half hearts
+    int health = 10; //Half-hearts
     int regenSpeed = 0; //Idfk
     int attackMovementSpeed = 1; //Blocks pr. second
     float wanderMovementSpeed = 0.7F; //Blocks pr. second
     int wanderRange = 10; //Blocks //Max 25
 
-    String npcRarity = "UNCOMMON";
-    String npcType = "Ogre";
+    String npcRarity = ChatColor.GRAY + "" + ChatColor.BOLD + "COMMON";
+    String npcType = "Zombie";
     String skinName = "haekthor";
-    String skinSignature = "V7cVFXhi5W9snly4LkxHyIuZK4gZNnDTffsXcx5j0s7cBzwsdoDoD6y+N9COLCo2cY7LyThacX9dhxINbpcQxVGnHPUtVU83j+8FVuw66fhhF7EoiGb5WBrmMvnXFIgowb3GIixE3ay/qo8n5uupKIHwZWJ3Yx5N2iSdYWVoK1wtOcQkZStHa32FkcayAn8ufhhCSvrovfwH7laMsG/hr+4lpjpTzvDpM5/gd+Z+W9Mfrxr4f+O/+nIoqeE/F/3H+kSu7x2KPdzDHIg93KWrQ14Rd59h6iTIuBP8kwRRQ1XPPzdASXwDQNafZoCZqZBA/QT1Uz/NqXWUDHWrYeTZKbgkliwH7WL6DYwty4ad1MHHJ5w5GWWr8yQChV5s/h/xxDr6y8eY7BBVESMUbtyU69z6FR/HmCwbsJQFgUVcFXYEGMWYYaSXMySNry4pGxlTenHInToR//xo8ye0zDDybJ+uoyGD4UGRx+enYGP3QxonxBm0gGPeIFKWB+59kahYkyJz033VmPRTaQg3kLr60tG0ljJqPsMDhmGNMNgAcFJe/EL77MLWyP5HPsx4HA+kC6uqRTwYRDWsSDJ8Rzi6ZvIArvmq3NvL4Ti236uN5ZCwX0SPFkBLkzrM9oeVSePAailgiNWg+263H/BruHPeHX8VI7ZN3LROHNQhi8zAh7k=";
-    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYwMzEzNTYzMTIxNSwKICAicHJvZmlsZUlkIiA6ICJmNjE1NzFmMjY1NzY0YWI5YmUxODcyMjZjMTEyYWEwYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJGZWxpeF9NYW5nZW5zZW4iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmVmNmU2NmM3MzAzZWY3NDJkNThhMjhiOTQ1YjdkY2NlMmI3ZjgwZGQyODJlOTc2NWI2OTM0ZWU3NTdkZmZmNSIKICAgIH0KICB9Cn0=";
+    String skinSignature = "PYDq0LyuhZ6LpQN9hdjQhXz+YLrum3ggdypgZ4Et+dVC+ofzzb2N1V1iUtJ868nzONXFjEGlDbkEqwFtISJApkfhn/qVKwNwQYb82WDEWAu3vX9T3XTRMGIH/FuOhvQORWNClaxwlPhIiNcx0IASUTc0YjtkzscM389AEJ3b/gYVQPTOh2CGQfF4m2i2iTfb7z3sbiFB5xNqSUpfzlajTjCk4kziQ7IHNkCQj/OL8Pfeb3kW4rQ14Ik+IfqP5nzeflMWLd5GeEOfxXQ/BJZIVrDq3c0+K9lESAx2kCvpOFbBynYsEGDFztibVsHfS1femTbPwaujs+AYKiuqJi4pdtt695CPDdCZZnx+sAGl0ElSpwkZ2Si0b3ZCjEFDjj2uO2xfd82NQwbUM9CuWVK0bxY6xj9jscnxkSn9Eb17htacbImf7BXbRbCXxA9XPt2YYDdLPOUbc5ievLgDoIWiCj1gAm29Q1yUVk34UhOrqb6UsUmFpQCbh5fNmhsS+csQuDfLmC37HSw/JNoJkxuCRfsVIDkZ9q5J97KfkVKAChRPE0EE37zwabAorLuMkpyAGMFTw9dzD+pjxgvVpBdyhaGa3poqsy6zQTpgYPK/1bObds4WkhOvTG+sdTxZ+JByyrSwgfawi+UW5GC3KxikTzzX2ZOT7448WXY5BJpPdpg=";
+    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYxOTQ0ODAwMDIzOSwKICAicHJvZmlsZUlkIiA6ICIyMWUzNjdkNzI1Y2Y0ZTNiYjI2OTJjNGEzMDBhNGRlYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJHZXlzZXJNQyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lM2Y2Mzc0YWZiZWEzOGM3OTk4OTBlYjgzZDZmZjE4OTZmNjFiNGNjOGZiOWYyNjZhZGQ5YTM5NWViOWZkMTVlIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
     String targets = "players";
 
     public void summon(Location location) {
@@ -82,7 +74,7 @@ public class Ogre {
         sentinal.range = eyeRange;
 
         //Make lookclose
-        npc.getOrAddTrait(LookClose.class).setRange(eyeRange);
+        npc.getOrAddTrait(LookClose.class).setRange(8);
         if (lookClose) {
             npc.getOrAddTrait(LookClose.class).toggle();
         }

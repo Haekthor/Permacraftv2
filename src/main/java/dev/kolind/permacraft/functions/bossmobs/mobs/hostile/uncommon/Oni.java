@@ -1,4 +1,4 @@
-package dev.kolind.permacraft.functions.bossmobs.mobs;
+package dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
@@ -9,38 +9,40 @@ import net.citizensnpcs.trait.waypoint.Waypoints;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.mcmonkey.sentinel.SentinelTrait;
 
-public class Zombie {
+public class Oni {
 
     boolean lookClose = true;
-    boolean allowKnockback = false;
+    boolean allowKnockback = true;
     boolean wander = true;
     boolean respawn = false;
 
-    ItemStack heldItem = new ItemStack(Material.AIR, 1);
+    ItemStack heldItem = new ItemStack(Material.STICK, 1);
 
-    int eyeRange = 6; //Blocks
-    double reach = 1.3; //Blocks
-    double attackRate = 1.5; //Seconds delay
-    int damage = 2; //Half hearts
-    int health = 10; //Half-hearts
+    int eyeRange = 14; //Blocks
+    double reach = 3; //Blocks
+    double attackRate = 1; //Seconds delay
+    int damage = 5; //Half hearts
+    int health = 60; //Half-hearts
     int regenSpeed = 0; //Idfk
-    int attackMovementSpeed = 1; //Blocks pr. second
+    double attackMovementSpeed = 1.35; //Blocks pr. second
     float wanderMovementSpeed = 0.7F; //Blocks pr. second
     int wanderRange = 10; //Blocks //Max 25
 
-    String npcRarity = "UNCOMMON";
-    String npcType = "Zombie";
+    String npcRarity = ChatColor.BLUE + "" + ChatColor.BOLD + "UNCOMMON";
+    String npcType = "Oni";
     String skinName = "haekthor";
-    String skinSignature = "PYDq0LyuhZ6LpQN9hdjQhXz+YLrum3ggdypgZ4Et+dVC+ofzzb2N1V1iUtJ868nzONXFjEGlDbkEqwFtISJApkfhn/qVKwNwQYb82WDEWAu3vX9T3XTRMGIH/FuOhvQORWNClaxwlPhIiNcx0IASUTc0YjtkzscM389AEJ3b/gYVQPTOh2CGQfF4m2i2iTfb7z3sbiFB5xNqSUpfzlajTjCk4kziQ7IHNkCQj/OL8Pfeb3kW4rQ14Ik+IfqP5nzeflMWLd5GeEOfxXQ/BJZIVrDq3c0+K9lESAx2kCvpOFbBynYsEGDFztibVsHfS1femTbPwaujs+AYKiuqJi4pdtt695CPDdCZZnx+sAGl0ElSpwkZ2Si0b3ZCjEFDjj2uO2xfd82NQwbUM9CuWVK0bxY6xj9jscnxkSn9Eb17htacbImf7BXbRbCXxA9XPt2YYDdLPOUbc5ievLgDoIWiCj1gAm29Q1yUVk34UhOrqb6UsUmFpQCbh5fNmhsS+csQuDfLmC37HSw/JNoJkxuCRfsVIDkZ9q5J97KfkVKAChRPE0EE37zwabAorLuMkpyAGMFTw9dzD+pjxgvVpBdyhaGa3poqsy6zQTpgYPK/1bObds4WkhOvTG+sdTxZ+JByyrSwgfawi+UW5GC3KxikTzzX2ZOT7448WXY5BJpPdpg=";
-    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYxOTQ0ODAwMDIzOSwKICAicHJvZmlsZUlkIiA6ICIyMWUzNjdkNzI1Y2Y0ZTNiYjI2OTJjNGEzMDBhNGRlYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJHZXlzZXJNQyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lM2Y2Mzc0YWZiZWEzOGM3OTk4OTBlYjgzZDZmZjE4OTZmNjFiNGNjOGZiOWYyNjZhZGQ5YTM5NWViOWZkMTVlIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
+    String skinSignature = "kAX0OLoY/FtEm5DgCU1z6boB28Db3QpsK1viaTBCLVc6pQfrqThNjIcpBegAxeBlS9aXExOMPqFF1bZ/gX47caYPxeGcZ7bjNr40nPONFV8LyLSEI82zs3KTGxGpb1ZpNPr4Hvmd+X8p8LjrFlc7uUgPRdbgRTZLg6+JZhFVwhWprZiimCmaLN3kf1StEidVCl4f2+xfUznCmW33bhtyviFFdmyQTXsNUFVBbrJh+f9VvBofH8cpAjGk8ss6fcwJF9TEqEdLOt0nGvcJXaamd0tXLu+sjaRwGajfkii9YbAyMB1PGvGV9VduvvXftfNR4rPl7j/9R+KfLo5V3OoZFZFRtATskrQT3Qf1Tr7HQWcyZZBC/wxQzTV0riahNRB2rIwHF5hJFtGLqaZzkWXnz7m+c7ytk7RuHFXVFkIFBszt014qiDHh+skVKTjeHbJz8P+ktNkl6F3KoXR6Gyjr3Ibnv3ChGuggLEyv5GmE9hoYfx0CWrHop3l5kZRU0ybsyBvqS0xvs7ztCfRpQnLNz4dcZaLotO9EYhigOArAMQ8HddE7Vpz+A+Zv9Rvm5qL6r7UDH8wX+VnwIzfm9/9WEoL4VzMV3u9x58rSDhOPVJGL4fZSh3X8ebHPFgA//YO8lP4LQEcQHPiOCtiF0boId3CjDaI49c2UekwHPljj1ok=";
+    String skinData = "ewogICJ0aW1lc3RhbXAiIDogMTYyMDQ4OTY5NTQ5MSwKICAicHJvZmlsZUlkIiA6ICI2MWVhMDkyM2FhNDQ0OTEwYmNlZjViZmQ2ZDNjMGQ1NyIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVEYXJ0aEZhdGhlciIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9kMTJkOWU0ODMzMjgwMGZlNjVlYjU3MzRhYmY0N2Q5NTc0MTIyNTc2NWIxOGE0YjVmZjY2Y2Y2YzYxYjU2MWQ1IgogICAgfQogIH0KfQ==";
     String targets = "players";
 
     public void summon(Location location) {
+
 
         NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "");
         npc.spawn(location);
@@ -74,12 +76,13 @@ public class Zombie {
         sentinal.range = eyeRange;
 
         //Make lookclose
-        npc.getOrAddTrait(LookClose.class).setRange(eyeRange);
+        npc.getOrAddTrait(LookClose.class).setRange(8);
         if (lookClose) {
             npc.getOrAddTrait(LookClose.class).toggle();
         }
 
         //Set held item
+        heldItem.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.HAND, heldItem);
 
         //Set knockback

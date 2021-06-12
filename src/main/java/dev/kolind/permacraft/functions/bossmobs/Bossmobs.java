@@ -19,7 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 public class Bossmobs implements Listener {
-	
+
+	//Deprecated class
+
 	public static ItemSmith Item = new ItemSmith();
 	//Constructor
 	Main instance;
