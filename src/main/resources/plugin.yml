@@ -3,7 +3,7 @@ version: 1.0
 author: Hector Kolind
 main: dev.kolind.permacraft.main.Main
 description: A plugin for Permacraft
-api-version: 1.16
+api-version: 1.17
 softdepend: [Citizens, Sentinel]
 
 commands:

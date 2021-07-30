@@ -2,10 +2,14 @@ package dev.kolind.permacraft.main;
 
 import dev.kolind.permacraft.functions.bossmobs.Bossmobs;
 import dev.kolind.permacraft.functions.bossmobs.NametagHealth;
-import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon.Cyclops;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.legendary.Chimera;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.legendary.Cyclops;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.rare.Goblin;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.rare.Minotaur;
 import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon.Oni;
 import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.common.Ogre;
 import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.common.Zombie;
+import dev.kolind.permacraft.functions.bossmobs.mobs.hostile.uncommon.Troll;
 import dev.kolind.permacraft.functions.chestloot.ChestLoot;
 import dev.kolind.permacraft.functions.customitems.CustomItemListListener;
 import dev.kolind.permacraft.functions.deathban.Deathban;
@@ -20,16 +24,11 @@ import dev.kolind.permacraft.gui.pages.mainmenu.Mainpagelistener;
 import dev.kolind.permacraft.itemfunctions.*;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.DespawnReason;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.npc.NPCRegistry;
-import net.citizensnpcs.trait.waypoint.Waypoints;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Iterator;
 
 
 public class Main extends JavaPlugin {
@@ -41,6 +40,11 @@ public class Main extends JavaPlugin {
     Zombie zombie = new Zombie();
     Oni oni = new Oni();
     Cyclops cyclops = new Cyclops();
+    Goblin goblin = new Goblin();
+    Chimera chimera = new Chimera();
+    Minotaur minotaur = new Minotaur();
+    Troll troll = new Troll();
+
 	
 	
     @Override
@@ -115,6 +119,18 @@ public class Main extends JavaPlugin {
                             return true;
                             case "cyclops":
                                 cyclops.summon(player.getLocation());
+                            return true;
+                            case "goblin":
+                                goblin.summon(player.getLocation());
+                            return true;
+                            case "chimera":
+                                chimera.summon(player.getLocation());
+                            return true;
+                            case "minotaur":
+                                minotaur.summon(player.getLocation());
+                            return true;
+                            case "troll":
+                                troll.summon(player.getLocation());
                             return true;
                         }
                     }
