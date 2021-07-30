@@ -29,12 +29,15 @@ public class ChestLoot implements Listener {
 	//Eventhandler
 	@EventHandler
     public void onGeneration(ChunkPopulateEvent e) {
-        ItemStack item = randomItem.randomitem();
         BlockState[] tileEntities = e.getChunk().getTileEntities();
-
         for(BlockState state : tileEntities) {
         	if(state.getType() == Material.CHEST && new Random().nextBoolean()) {
-                ((Chest) state.getBlock().getState()).getBlockInventory().addItem(item);
+                ((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
+				((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
+				((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
+				((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
+				((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
+				((Chest) state.getBlock().getState()).getBlockInventory().addItem(randomItem.randomitem());
                 ((BlockState) state.getBlock().getState()).update(true);
             }
         }

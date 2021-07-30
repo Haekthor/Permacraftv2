@@ -11,6 +11,7 @@ import java.util.Random;
 public class CustomItems {
 
 	//TODO rewrite this huge fkn mess
+	//I will do it later, for now, PAaAAAAaaaAarrerrrtatatyatatatayAYYYYY
 
 	ItemSmith itemSmith = new ItemSmith();
 	//The smithing taple
